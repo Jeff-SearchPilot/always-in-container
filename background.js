@@ -37,6 +37,11 @@
     }
   };
 
+  const isAwsConsole = async function (url) {
+    if (url.includes('console.aws.amazon.com')) return true;
+    return false;
+  };
+
   /*
    * Check such pages and ask user to chose a container
    */
@@ -88,6 +93,7 @@
     }
 
     if (await isMACAssigned(request.url)) return void 0;
+    if (!await isAwsConsole(request.url)) return void 0;
 
     if (request && shouldCancelEarly(tab, request)) {
       return { cancel: true };
